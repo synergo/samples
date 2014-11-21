@@ -31,7 +31,7 @@ $eventHubs = @($entryEvenHub, $exitEvenHub)
 
 $nsMgrType = [System.Reflection.Assembly]::LoadFrom($PSScriptRoot +"\Microsoft.ServiceBus.dll").GetType("Microsoft.ServiceBus.NamespaceManager")
 $nsName = "TollData" + $uniqueSuffix
-$ns = New-AzureSBNamespace -Name $nsName -Location $region -CreateACSNamespace $true
+$ns = New-AzureSBNamespace -Name $nsName -Location $region -CreateACSNamespace $true -NamespaceType Messaging
 Write-Host ("Created Service Bus namespace $nsName")  -ForegroundColor Green
 $nsMgr = $nsMgrType::CreateFromConnectionString($ns.ConnectionString)
  
