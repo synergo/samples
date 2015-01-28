@@ -49,7 +49,7 @@ namespace TollApp
                 string.Join(
                     ",",
                     this.TollId.ToString(),
-                    this.EntryTime.ToString(),
+                    this.EntryTime.ToString("o"),
                     this.LicensePlate,
                     this.State,
                     this.CarModel.Make,
@@ -82,7 +82,7 @@ namespace TollApp
                 string.Join(
                     ",",
                     this.TollId.ToString(),
-                    this.ExitTime.ToString(),
+                    this.ExitTime.ToString("o"),
                     this.LicensePlate));
             return sb.ToString();
         }
