@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace TollApp
@@ -48,16 +49,16 @@ namespace TollApp
             sb.AppendLine(
                 string.Join(
                     ",",
-                    this.TollId.ToString(),
+                    this.TollId.ToString(CultureInfo.InvariantCulture),
                     this.EntryTime.ToString("o"),
                     this.LicensePlate,
                     this.State,
                     this.CarModel.Make,
                     this.CarModel.Model,
-                    this.CarModel.VehicleType.ToString(),
-                    this.CarModel.VehicleWeight.ToString(),
-                    this.TollAmount.ToString(),
-                    this.Tag.ToString()));
+                    this.CarModel.VehicleType.ToString(CultureInfo.InvariantCulture),
+                    this.CarModel.VehicleWeight.ToString(CultureInfo.InvariantCulture),
+                    this.TollAmount.ToString(CultureInfo.InvariantCulture),
+                    this.Tag.ToString(CultureInfo.InvariantCulture)));
 
             return sb.ToString();
         }
@@ -81,7 +82,7 @@ namespace TollApp
             sb.AppendLine(
                 string.Join(
                     ",",
-                    this.TollId.ToString(),
+                    this.TollId.ToString(CultureInfo.InvariantCulture),
                     this.ExitTime.ToString("o"),
                     this.LicensePlate));
             return sb.ToString();

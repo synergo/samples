@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -145,9 +146,9 @@ namespace TollApp
                     file.WriteLine(
                         string.Join(
                         ",", 
-                        GetLicenceNumber(), 
-                        random.Next(100000000, 999999999).ToString(),
-                        random.Next(0, 2).ToString()));
+                        GetLicenceNumber(),
+                        random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture),
+                        random.Next(0, 2).ToString(CultureInfo.InvariantCulture)));
                 }
             }
         }

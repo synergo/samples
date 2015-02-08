@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 using Microsoft.ServiceBus.Messaging;
@@ -53,19 +54,13 @@ namespace TollApp
             }
         }
 
-        public static void SendData(string serviceBusConnectionString, string entryHubName, string exitHubName, bool addPolicy = false)
+        public static void SendData(string serviceBusConnectionString, string entryHubName, string exitHubName)
         {
             var entryEventHub = EventHubClient.CreateFromConnectionString(serviceBusConnectionString, entryHubName);
             var exitEventHub = EventHubClient.CreateFromConnectionString(serviceBusConnectionString, exitHubName);
            
             var timerInterval = TimeSpan.FromSeconds(1);
             var generator = TollDataGenerator.Generator();
-
-            if (addPolicy)
-            {
-                EventHubHelper.AddManagementPolicy(serviceBusConnectionString, entryHubName);
-                EventHubHelper.AddManagementPolicy(serviceBusConnectionString, exitHubName);
-            }
 
             TimerCallback timerCallback = state =>
             {
@@ -79,7 +74,7 @@ namespace TollApp
                         entryEventHub.Send(
                            new EventData(Encoding.UTF8.GetBytes(e.Format()))
                                     {
-                                        PartitionKey = e.TollId.ToString()
+                                        PartitionKey = e.TollId.ToString(CultureInfo.InvariantCulture)
                                     });
                     }
                     else
@@ -87,7 +82,7 @@ namespace TollApp
                         exitEventHub.Send(
                            new EventData(Encoding.UTF8.GetBytes(e.Format()))
                            {
-                               PartitionKey = e.TollId.ToString()
+                               PartitionKey = e.TollId.ToString(CultureInfo.InvariantCulture)
                            });
                     }
                 }

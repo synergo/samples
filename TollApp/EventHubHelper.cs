@@ -54,18 +54,6 @@ namespace TollApp
             RetryPolicy.ExecuteAsync(() => namespaceManager.CreateEventHubIfNotExistsAsync(evenhubDesc)).Wait();
         }
 
-        public static void AddManagementPolicy(string eventHubConnectionString, string eventHubPath)
-        {
-            NamespaceManager namespaceManager = NamespaceManager.CreateFromConnectionString(eventHubConnectionString);
-            var evenhubDesc = namespaceManager.GetEventHub(eventHubPath);
-
-            string eventHubKey = SharedAccessAuthorizationRule.GenerateRandomKey();
-            SharedAccessAuthorizationRule eventHubSendRule = 
-                new SharedAccessAuthorizationRule("all", eventHubKey, new[] { AccessRights.Send, AccessRights.Listen, AccessRights.Manage });
-            evenhubDesc.Authorization.Add(eventHubSendRule);
-            namespaceManager.UpdateEventHub(evenhubDesc);
-        }
-
         /// <summary>
         /// Delete all EventHub paths in a given eventhub namespace 
         /// </summary>

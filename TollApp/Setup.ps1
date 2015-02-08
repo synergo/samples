@@ -86,4 +86,4 @@ Write-Host "Uploaded reference data file" -ForegroundColor Green
 # Run load generator
 Write-Host "Start generating events" -ForegroundColor White
 $tollAppType = [System.Reflection.Assembly]::LoadFrom($PSScriptRoot +"\\TollApp.exe").GetType("TollApp.Program")
-$tollAppType::SendData($ns.ConnectionString, $entryEvenHub, $exitEvenHub, $true)
+$tollAppType::SendData($ns.ConnectionString, $entryEvenHub, $exitEvenHub)
