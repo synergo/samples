@@ -49,7 +49,7 @@ namespace TwitterClient
                 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Sending" + serialisedString + " at: " + TwitterPayloadData.CreatedAt.ToString() );
-                 
+                                
             }
             catch (Exception ex)
             {
