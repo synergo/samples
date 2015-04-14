@@ -1,13 +1,19 @@
-﻿namespace TwitterClient
-{
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-    using System.Text;
-    using System.Web;
+﻿//------------------------------------------------------------------------------ 
+// <copyright> 
+//     Copyright (c) Microsoft Corporation. All Rights Reserved. 
+// </copyright> 
+//------------------------------------------------------------------------------ 
 
+using Newtonsoft.Json.Linq;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Web;
+
+namespace TwitterClient
+{
     public static class Sentiment
     {
         public static TwitterPayload ComputeScore(Tweet tweet, string twitterKeywords)
