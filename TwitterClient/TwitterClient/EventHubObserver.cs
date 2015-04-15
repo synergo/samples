@@ -1,4 +1,10 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------ 
+// <copyright> 
+//     Copyright (c) Microsoft Corporation. All Rights Reserved. 
+// </copyright> 
+//------------------------------------------------------------------------------ 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +49,7 @@ namespace TwitterClient
                 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Sending" + serialisedString + " at: " + TwitterPayloadData.CreatedAt.ToString() );
-                 
+                                
             }
             catch (Exception ex)
             {

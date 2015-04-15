@@ -1,11 +1,16 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------ 
+// <copyright> 
+//     Copyright (c) Microsoft Corporation. All Rights Reserved. 
+// </copyright> 
+//------------------------------------------------------------------------------ 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-
 
 namespace TwitterClient
 {
@@ -30,8 +35,7 @@ namespace TwitterClient
                 keywords)).Select(tweet => Sentiment.ComputeScore(tweet, keywords)).Select(tweet => new Payload { CreatedAt=tweet.CreatedAt,Topic =tweet.Topic ,SentimentScore =tweet.SentimentScore });
 
             datum.ToObservable().Subscribe(myEventHubObserver);
-
-            
+           
 
         }
     }

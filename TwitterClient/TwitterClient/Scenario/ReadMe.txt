@@ -7,8 +7,8 @@ Azure Subscription
 Twitter Account
 
 Running the generator code and setting up the Stream Analytics job is very simple.
-This sample contains an event generator which uses Twitter API to get tweet events. Application parses tweets for parameterized keywords (Obama,Skype,XBox,Microsoft, etc.) and uses open source Sentiment140 to add sentiment score to tweet events. To run the sample you will need to first create an EventHub and configure the App.config with its connection string.
-You can then create a Stream Analytics Job. Configure the input to point to the EventHub your have created. In the Query Window you can copy and paste the Query below:
+This sample contains an event generator which calls the Twitter API (dev.twitter.com) to get tweet events. Application parses tweets for parameterized keywords (Skype,XBox,Microsoft, etc.) and uses Sentiment140 (www.sentiment140.com) to add sentiment score to tweet events. To run the sample you will need to first create an EventHub and configure the App.config with its connection string.
+You can then create a Stream Analytics Job. Configure the input to point to the EventHub you have created. In the Query Window you can copy and paste the Query below:
 
 
 SELECT Topic,count(*) AS Count, Avg(SentimentScore) AS AvgSentiment, System.Timestamp AS Insert_Time
@@ -45,3 +45,5 @@ CREATE TABLE [dbo].[TweetCount](
 )
 
 GO
+
+Please note: This sample code calls the Twitter API, which is provided by Twitter, Inc. and not by Microsoft, to obtain tweets. Your use of the Twitter API is governed by your agreement(s) with Twitter, Inc.  This sample code also calls the API from Sentiment140 (www.sentiment140.com), which is not affiliated with Microsoft, to discover the sentiment of tweets. Your use of the Sentiment140 API is governed by any terms imposed on your use by the owners of the Sentiment140 API.

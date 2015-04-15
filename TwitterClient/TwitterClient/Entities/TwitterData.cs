@@ -1,14 +1,21 @@
+//------------------------------------------------------------------------------ 
+// <copyright> 
+//     Copyright (c) Microsoft Corporation. All Rights Reserved. 
+// </copyright> 
+//------------------------------------------------------------------------------ 
+
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace TwitterClient
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Net;
-    using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Json;
-    using System.Security.Cryptography;
-    using System.Text;
-
     public struct TwitterConfig
     {
         public readonly string OAuthToken;

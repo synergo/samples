@@ -1,24 +1,30 @@
-﻿namespace TwitterClient
-{
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-    using System.Text;
-    using System.Web;
+﻿//------------------------------------------------------------------------------ 
+// <copyright> 
+//     Copyright (c) Microsoft Corporation. All Rights Reserved. 
+// </copyright> 
+//------------------------------------------------------------------------------ 
 
+using Newtonsoft.Json.Linq;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Web;
+
+namespace TwitterClient
+{
     public static class Sentiment
     {
         public static TwitterPayload ComputeScore(Tweet tweet, string twitterKeywords)
         {
-//            Console.WriteLine("TWEET: " + tweet.Id);
+
             return new TwitterPayload
             {
                 ID = tweet.Id,
                 CreatedAt = ParseTwitterDateTime(tweet.CreatedAt),
                 UserName = tweet.User != null ? tweet.User.Name : null,
-                TimeZone = tweet.User != null ? (tweet.User.TimeZone != null ? tweet.User.TimeZone : "(unknown)") : "(unknown)", //Check this out
+                TimeZone = tweet.User != null ? (tweet.User.TimeZone != null ? tweet.User.TimeZone : "(unknown)") : "(unknown)", 
                 ProfileImageUrl = tweet.User != null ? (tweet.User.ProfileImageUrl != null ? tweet.User.ProfileImageUrl : "(unknown)") : "(unknown)",
                 Text = tweet.Text,
                 Language = tweet.Language != null ? tweet.Language : "(unknown)",
@@ -113,14 +119,6 @@
                 //a key phrase may have multiple key words, like: Windows Phone.  If this is the case we will only assign it a subject if both words are 
                 //included and in the correct order. For example, a tweet will match if "Windows 8" is found within the tweet but will not match if
                 // the tweet is "There were 8 broken Windows".  This is not case sensitive
-
-                //string[] keywords = keyPhrase.Split(' ');
-                // if (tweetText.Contains(keywords[0])) break;
-
-
-                // if (tweetText.ToUpper().Contains(keyPhrase.ToUpper())) return subject;
-                //if (tweetText.ToUpper().Contains("#" + keyPhrase.ToUpper().Replace(" ", ""))) return subject;
-                //if (tweetText.ToUpper().Contains("@" + keyPhrase.ToUpper().Replace(" ", ""))) return subject;
 
                 //Creates one array that breaks the tweet into individual words and one array that breaks the key phrase into individual words.  Within 
                 //This for loop another array is created from the tweet that includes the same number of words as the keyphrase.  These are compared.  For example,
