@@ -1,4 +1,14 @@
-﻿using System;
+﻿//********************************************************* 
+// 
+//    Copyright (c) Microsoft. All rights reserved. 
+//    This code is licensed under the Microsoft Public License. 
+//    THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF 
+//    ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY 
+//    IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR 
+//    PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT. 
+// 
+//*********************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +53,10 @@ namespace SecurityBadgeScan
                
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Sending" + serialisedString + " at: " + badgeData.TimeStamp);
-                _logger.Write("Sending" + serialisedString + " at: " + badgeData.TimeStamp);
+
+                //To write every event entry to the logfile, uncomment the line below. 
+                //Note: Writing every event can quickly grow the size of the log file.
+                //_logger.Write("Sending" + serialisedString + " at: " + badgeData.TimeStamp);
 
             }
             catch (Exception ex)
