@@ -1,5 +1,5 @@
 $VerbosePreference ="SilentlyContinue"
-$region = "Central US"
+$region = "South Central US"
 $uniqueSuffix = Get-Random -Maximum 9999999999
 [Environment]::CurrentDirectory = $PSScriptRoot
 $ErrorActionPreference  = 'Stop'
