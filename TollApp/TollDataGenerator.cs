@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace TollApp
 {
@@ -57,13 +58,13 @@ namespace TollApp
 
         private readonly Random random;
         private readonly EventBuffer eventBuffer;
-        private readonly string[] commercialVehicleRegistration;
+        private readonly Registration[] commercialVehicleRegistration;
 
         private TollDataGenerator(Random r)
         {
             random = r;
             eventBuffer = new EventBuffer();
-            commercialVehicleRegistration = File.ReadAllLines(@"Data\Registration.csv");
+            commercialVehicleRegistration = JsonConvert.DeserializeObject<Registration[]>(File.ReadAllText(@"Data\Registration.json"));
         }
 
         public static TollDataGenerator Generator()
@@ -89,14 +90,12 @@ namespace TollApp
                 if (carModel.VehicleType == 2)
                 {
                     licence =
-                        commercialVehicleRegistration[random.Next(commercialVehicleRegistration.Length)].Split(
-                            new char[] { ',' })[0];
+                        commercialVehicleRegistration[random.Next(commercialVehicleRegistration.Length)].LicensePlate;
                 }
                 else
                 {
                     licence = GetLicenceNumber();
                 }
-                
                 eventBuffer.Add(entryTime, new EntryEvent(tollId, entryTime, licence, state, carModel, tollAmount, tag));
 
                 if (tollId != TollIdWithFailedExitSensor)

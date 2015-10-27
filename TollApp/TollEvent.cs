@@ -143,4 +143,11 @@ namespace TollApp
             VehicleWeight = vehicleWeight;
         }
     }
+
+    public class Registration
+    {
+        public string LicensePlate { get; set; }
+        public string RegistrationId { get; set; }
+        public int Expired { get; set; }
+    }
 }

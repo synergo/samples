@@ -98,17 +98,19 @@ namespace TollApp
             var exitEvent = new ManualResetEvent(false);
             Console.CancelKeyPress += (sender, eventArgs) =>
             {
+                Console.WriteLine("Stopping...");
                 eventArgs.Cancel = true;
                 exitEvent.Set();
             };
 
             exitEvent.WaitOne();
-
+            Console.WriteLine("Shutting down all resources...");
             timer.Change(Timeout.Infinite, Timeout.Infinite);
             Thread.Sleep(timerInterval);
             timer.Dispose();
             entryEventHub.Close();
             exitEventHub.Close();
+            Console.WriteLine("Stopped.");
         }
     }
 }
