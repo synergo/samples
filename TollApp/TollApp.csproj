@@ -66,9 +66,15 @@
     <None Include="Cleanup.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Entry.json" />
-    <None Include="Data\Exit.json" />
-    <None Include="Data\Registration.json" />
+    <None Include="Data\Entry.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Exit.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Registration.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Setup.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
