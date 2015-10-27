@@ -1,27 +1,34 @@
+function CheckAzurePowerShellVersion {
+	if (Get-Module -ListAvailable -Name Azure)
+	{
+	    Write-Host 'Found Azure module' 
+    }
+	else
+	{
+		if (Get-Module -ListAvailable -Name AzureRM)
+		{
+			Write-Host 'Because of the recent breaking changes, this version of powershell is not supported. Please install any version less than or equal to 0.9.8.1' -ForegroundColor Yellow
+			Write-Host 'The program will now exit' -ForegroundColor Yellow
+			exit
+		}
+		else
+		{
+			Write-Host 'Unable to find Azure module, please install Azure Powershell Module' -ForegroundColor Yellow
+			Write-Host 'The program will now exit' -ForegroundColor Yellow
+			exit
+		}
+	}
+} 
+
+CheckAzurePowerShellVersion
+
 $VerbosePreference ="SilentlyContinue"
 $region = "South Central US"
 $uniqueSuffix = Get-Random -Maximum 9999999999
 [Environment]::CurrentDirectory = $PSScriptRoot
 $ErrorActionPreference  = 'Stop'
 
-# Check Azure account
-$acc = Get-AzureAccount
-if (!$acc)
-{
-	Add-AzureAccount
-}
-
-# If there are multiple subscriptions we will need to select one
-$subscriptions = Get-AzureSubscription
-if ($subscriptions.GetType().IsArray)
-{
-	Write-Host "Multiple subscriptions found:"  -ForegroundColor Yellow
-	$subscriptions | select SubscriptionName
-	Write-Host "There are mutiple subscriptions found for your account. Please type the name of the subscription you want to use:" -ForegroundColor Yellow
-
-	$subscriptinName = Read-Host "Subscription Name"
-	Select-AzureSubscription -SubscriptionName $subscriptinName
-}
+dir $PSScriptRoot | Unblock-File
 
 # Setup Event Hubs
 Write-Host "Create Service Bus namespace and Event Hubs" -ForegroundColor White
@@ -74,13 +81,13 @@ Write-Host "Created Sql tables" -ForegroundColor Green
 $containerName = "tolldata"
 Write-Host "Create storage account and upload reference data file" -ForegroundColor White
 $storageAccountName = "tolldata" + $uniqueSuffix
-$result = New-AzureStorageAccount -StorageAccountName $storageAccountName -Location $region
+$result = New-AzureStorageAccount -StorageAccountName $storageAccountName -Location $region -Label "ASAHandsOnLab"
 Write-Host "Created storage account $storageAccountName" -ForegroundColor Green
 $storageKeys = Get-AzureStorageKey -StorageAccountName $storageAccountName
 
 $storageContext = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageKeys.Primary
 $container = New-AzureStorageContainer -Name $containerName -Context $storageContext
-$copyResult = Set-AzureStorageBlobContent -file ($PSScriptRoot + "\\Data\\Registration.csv") -Container tolldata -Blob "registration.csv" -Context $storageContext
+$copyResult = Set-AzureStorageBlobContent -file ($PSScriptRoot + "\\Data\\Registration.json") -Container tolldata -Blob "registration.json" -Context $storageContext
 Write-Host "Uploaded reference data file" -ForegroundColor Green
 
 # Run load generator

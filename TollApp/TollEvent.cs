@@ -101,6 +101,21 @@ namespace TollApp
 
         public override string Format()
         {
+            return FormatJson();
+        }
+
+        public string FormatJson()
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                TollId = this.TollId.ToString(CultureInfo.InvariantCulture),
+                ExitTime = this.ExitTime.ToString("o"),
+                LicensePlate = this.LicensePlate,
+            });
+        }
+
+        public string FormatCsv()
+        {
             var sb = new StringBuilder();
             sb.AppendLine(@"TollId,ExitTime,LicensePlate");
             sb.AppendLine(
