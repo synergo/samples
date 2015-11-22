@@ -59,12 +59,6 @@
     <Compile Include="TollEvent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CheckAzurePowerShellVersion.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="AddAzureAccount.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="App.config" />
     <None Include="Cleanup.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

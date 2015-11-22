@@ -24,34 +24,8 @@ namespace TollApp
                 return;
             }
 
-            while (true)
-            {
-                Console.WriteLine("1. Setup input sources");
-                Console.WriteLine("2. Send toll data to Event Hub");
-                Console.WriteLine("3. Cleanup");
-                Console.WriteLine("4. Exit");
-
-                Console.WriteLine("\nChoose action 1-4:");
-
-                var action = Console.ReadLine();
-
-                switch (action)
-                {
-                    case "1":
-                        Environment.Setup();
-                        break;
-                    case "2":
-                        SendData(Environment.EventHubConnectionString, Environment.EntryEventHubPath, Environment.ExitEventHubPath);
-                        break;
-                    case "3":
-                        Environment.Cleanup();
-                        break;
-                    case "4":
-                        return;
-                }
-
-                Console.WriteLine("\n\n");
-            }
+            SendData(Environment.EventHubConnectionString, Environment.EntryEventHubPath, Environment.ExitEventHubPath);
+            
         }
 
         public static void SendData(string serviceBusConnectionString, string entryHubName, string exitHubName)
