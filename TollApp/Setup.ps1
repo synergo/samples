@@ -56,7 +56,7 @@ function ValidateParameters{
 
 function LoadLocation{
     $rowNumber = 1
-    $LabLocations = 'South Central US', 'North Central US', 'West US', 'East US', 'Central US'
+    $LabLocations = 'South Central US', 'West US', 'East US', 'Central US'
     $validLocations = $global:SupportedLocations | foreach  {"$($_.ToLower())"}
     if($global:location -eq $null) {$global:location = ''}
     
@@ -83,27 +83,6 @@ function SetResourceParams {
     $global:storageAccountName = "tolldata" + $global:resourceSuffix   
 }
 
-function CheckAzurePowerShellVersion {
-	if (Get-Module | where-object {$_.Name -eq "Azure"})
-	{
-		$global:AzurePowerShellModule = "Azure"
-    }
-	else
-	{
-		if (Get-Module | where-object {$_.Name -eq "AzureRM"})
-		{
-			Write-Host 'Found AzureRM module' 
-			Write-Host 'This version of Azure Powershell is not supported. Please install https://github.com/Azure/azure-powershell/releases/download/v1.0.1-November2015/azure-powershell.1.0.1.msi' -ForegroundColor Yellow
-			exit
-		}
-		else
-		{
-			Write-Host 'Unable to find Azure module, please install Azure Powershell Module' -ForegroundColor Yellow
-			Write-Host 'The program will now exit' -ForegroundColor Yellow
-			exit
-		}
-	}
-} 
 
 function InitializeSubscription{
     $global:Validated = $false
@@ -193,6 +172,15 @@ function InitSubscription{
 	
 	$global:subscriptionID = $subList[$rowNum-1].SubscriptionId;
 	$global:subscriptionDefaultAccount = $subList[$rowNum-1].DefaultAccount.Split('@')[0]
+
+#switch to appropriate subscription 
+    try{ 
+        Select-AzureSubscription -SubscriptionId $global:subscriptionID 
+    }  
+    catch{ 
+        throw 'Subscription ID provided is invalid: ' + $global:subscriptionID     
+    } 
+
 }
 
 function ValidateSubscription{
@@ -415,7 +403,7 @@ foreach ($storageaccount in Get-AzureStorageAccount -WarningAction SilentlyConti
 	$answer = $host.ui.PromptForChoice($caption,$message,$choices,1)
 
 	switch ($answer){
-		0 {$storageaccount | Remove-AzureStorageAccount -InformationAction SilentlyContinue -WarningAction SilentlyContinue; break}
+		0 {$storageaccount | Remove-AzureStorageAccount -WarningAction SilentlyContinue; break}
 		1 {break}
 	}
 }
@@ -494,7 +482,7 @@ function ListResources{
     Write-Host "`tSharedAccessKey: $global:sharedaccesskey"
     Write-Host ""
     Write-Host "Sql Server:"
-    Write-Host "`tServer: $global:sqlserverName" + ".database.windows.net"
+    Write-Host "`tServer: $global:sqlserverName.database.windows.net"
     Write-Host "`tSqlLogin: $global:sqlServerLogin"
     Write-Host "`tPassword: $global:sqlServerPassword"
     Write-Host "`tDatabaseName: $global:sqlDBName"
@@ -527,7 +515,6 @@ $Global:DebugPreference="SilentlyContinue"
 
 dir | unblock-file
 ValidateParameters
-CheckAzurePowerShellVersion
 InitializeSubscription
 
 switch($global:mode){
