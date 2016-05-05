@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatedDevice", "SimulatedDevice\SimulatedDevice.csproj", "{2B2D7A84-93DE-4731-9DEB-C53742AA6379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDeviceIdentity", "..\Raspberry\Raspberry\CreateDeviceIdentity.csproj", "{DAE2B373-4AC7-48E4-BF1A-E4DE0EA855B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadDeviceToCloudMessages", "..\ReadDeviceToCloudMessages\ReadDeviceToCloudMessages\ReadDeviceToCloudMessages.csproj", "{D892D5D0-AA04-4C39-8879-E47DA35E81BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B2D7A84-93DE-4731-9DEB-C53742AA6379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B2D7A84-93DE-4731-9DEB-C53742AA6379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B2D7A84-93DE-4731-9DEB-C53742AA6379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B2D7A84-93DE-4731-9DEB-C53742AA6379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE2B373-4AC7-48E4-BF1A-E4DE0EA855B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE2B373-4AC7-48E4-BF1A-E4DE0EA855B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE2B373-4AC7-48E4-BF1A-E4DE0EA855B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE2B373-4AC7-48E4-BF1A-E4DE0EA855B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D892D5D0-AA04-4C39-8879-E47DA35E81BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D892D5D0-AA04-4C39-8879-E47DA35E81BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D892D5D0-AA04-4C39-8879-E47DA35E81BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D892D5D0-AA04-4C39-8879-E47DA35E81BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
