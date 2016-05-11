@@ -9,6 +9,9 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
+using Microsoft.Azure.Devices.Client;
+using System.Threading.Tasks;
 
 namespace TollApp
 {
@@ -24,8 +27,9 @@ namespace TollApp
                 return;
             }
 
-            SendData(Environment.EventHubConnectionString, Environment.EntryEventHubPath, Environment.ExitEventHubPath);
-            
+            //SendData(Environment.EventHubConnectionString, Environment.EntryEventHubPath, Environment.ExitEventHubPath);
+
+            SendDeviceToCloudMessagesAsync();
         }
 
         public static void SendData(string serviceBusConnectionString, string entryHubName, string exitHubName)
@@ -85,6 +89,44 @@ namespace TollApp
             entryEventHub.Close();
             exitEventHub.Close();
             Console.WriteLine("Stopped.");
+        }
+
+        private static void SendDeviceToCloudMessagesAsync()
+        {
+            Console.WriteLine("Simulated device\n");
+            DeviceClient deviceClient = DeviceClient.Create(Environment.IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey("myFirstDevice", Environment.DeviceKey));
+
+            double avgWindSpeed = 10; // m/s
+            Random rand = new Random();
+
+            var entryEventHub = EventHubClient.CreateFromConnectionString(Environment.EventHubConnectionString, Environment.EntryEventHubPath);
+
+            while (true)
+            {
+                double currentWindSpeed = avgWindSpeed + rand.NextDouble() * 4 - 2;
+
+                var telemetryDataPoint = new
+                {
+                    DeviceId = "myFirstDevice",
+                    EventTime = DateTime.UtcNow,
+                    WindSpeed = currentWindSpeed
+                };
+                var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+
+                entryEventHub.Send(
+                         new EventData(Encoding.UTF8.GetBytes(messageString))
+                         {
+                             PartitionKey = telemetryDataPoint.DeviceId.ToString(CultureInfo.InvariantCulture)
+                         });
+
+
+                //var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                //await deviceClient.SendEventAsync(message);
+                
+                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+
+                Task.Delay(1000).Wait();
+            }
         }
     }
 }
