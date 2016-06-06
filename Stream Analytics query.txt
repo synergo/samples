@@ -1,0 +1,15 @@
+SELECT
+    DeviceId,
+    EventTime,
+    WindSpeed as WindSpeedReading
+INTO
+    WindSpeedTableStorage
+from WindSpeedSensors
+WHERE DeviceId is not null and EventTime is not null
+
+SELECT
+     id, date, value, name, display_name, description,source, state_changed,physical,location_id,hub_id, smartapp_id
+INTO
+    RealOutputStream
+from RealInputStream
+WHERE id is not null and date is not null
